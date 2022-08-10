@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "user_profile",
     "product",
+    # swagger documentation
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,16 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Auth Token eg [Bearer (JWT) ]": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+        }
+    }
+}
 
 ROOT_URLCONF = "prosonic_backend_core.urls"
 
