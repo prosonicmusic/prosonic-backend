@@ -93,12 +93,12 @@ WSGI_APPLICATION = "prosonic_backend_core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "prosonic",
-        "USER": "root",
-        "PASSWORD": "29825",
-        "HOST": "localhost",  # Or an IP Address that your DB is hosted on
-        "PORT": "3306",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
