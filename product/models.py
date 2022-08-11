@@ -16,22 +16,24 @@ class File(models.Model):
 
 
 class Product(models.Model):
-    file_id = models.ForeignKey(File, on_delete=models.CASCADE)
+    file_id = models.ForeignKey(File, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    daw = models.CharField(max_length=100)
-    length = models.CharField(max_length=100)
-    genre = models.CharField(max_length=100)
-    bpm = models.CharField(max_length=100)
+    author = models.CharField(max_length=100, blank=True, null=True)
+    daw = models.CharField(max_length=100, blank=True, null=True)
+    length = models.CharField(max_length=100, blank=True, null=True)
+    genre = models.CharField(max_length=100, blank=True, null=True)
+    bpm = models.CharField(max_length=100, blank=True, null=True)
     project_description = models.CharField(max_length=100)
     project_image = models.ImageField(
-        upload_to=f"uploads/images/products", max_length=254
+        upload_to=f"uploads/images/products", max_length=254, blank=True, null=True
     )
-    thumbnail = models.ImageField(upload_to=f"uploads/images/products", max_length=254)
-    tag = models.CharField(max_length=100)
-    product_type = models.CharField(max_length=100, blank=True)
-    package_type = models.CharField(max_length=100, blank=True)
-    sample_type = models.CharField(max_length=100, blank=True)
+    thumbnail = models.ImageField(
+        upload_to=f"uploads/images/products", max_length=254, blank=True, null=True
+    )
+    tag = models.CharField(max_length=100, blank=True, null=True)
+    product_type = models.CharField(max_length=100, blank=True, null=True)
+    package_type = models.CharField(max_length=100, blank=True, null=True)
+    sample_type = models.CharField(max_length=100, blank=True, null=True)
     product_price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
     )
@@ -40,9 +42,6 @@ class Product(models.Model):
     )
     cover_price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
-    )
-    overall_price = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=False, null=True
     )
     sold = models.BooleanField(default=False)
 

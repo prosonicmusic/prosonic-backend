@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.URLField(max_length=300)
+    avatar = models.ImageField(upload_to=f"uploads/images/avatar", max_length=254)
     phone_number = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
     provice = models.CharField(max_length=100, blank=True, null=True)
