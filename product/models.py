@@ -15,11 +15,17 @@ class File(models.Model):
         return self.file_name
 
 
+DAW_CHOICES = (
+    ("Cubase", "Cubase"),
+    ("FL Studio", "FL Studio"),
+)
+
+
 class Product(models.Model):
-    file_id = models.ForeignKey(File, on_delete=models.CASCADE, blank=True, null=True)
+    files = models.ForeignKey(File, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100, blank=True, null=True)
-    daw = models.CharField(max_length=100, blank=True, null=True)
+    daw = models.CharField(max_length=100, choices=DAW_CHOICES, blank=True, null=True)
     length = models.CharField(max_length=100, blank=True, null=True)
     genre = models.CharField(max_length=100, blank=True, null=True)
     bpm = models.CharField(max_length=100, blank=True, null=True)

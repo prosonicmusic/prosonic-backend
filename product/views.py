@@ -7,29 +7,28 @@ import traceback
 from rest_framework import status, generics
 from product.models import Product
 from product.serializers import ProductSerializer
-from prosonic_backend_core.utils import CustomResponse
 
 
-# class ProductClassView(APIView):
-#     # permission_classes = (IsAuthenticated,)
+class ProductClassView(APIView):
+    # permission_classes = (IsAuthenticated,)
 
-#     def get(self, request):
-#         try:
-#             pass
-#         except Exception as e:
-#             trace_back = traceback.format_exc()
-#             message = str(e) + " " + str(trace_back)
-#             return CustomResponse(
-#                 self,
-#                 status_code=500,
-#                 errors=message,
-#                 message="",
-#                 data="",
-#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-#             )
+    def get(self, request):
+        try:
+            genres = request.GET["genres"]
+            daw = request.GET["daw"]
+            min_price = request.GET["minp"]
+            max_price = request.GET["maxp"]
+            product_type = request.GET["ptype"]
+
+            return Response([], status=status.HTTP_200_OK)
+        except Exception as e:
+            trace_back = traceback.format_exc()
+            message = str(e) + " " + str(trace_back)
+            print(message)
+            raise Exception(message)
 
 
-class ProductsList(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    # permission_classes = [IsAuthenticated]
+# class ProductsList(generics.ListCreateAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+# permission_classes = [IsAuthenticated]

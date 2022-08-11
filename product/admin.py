@@ -10,4 +10,4 @@ class CustomFile(admin.ModelAdmin):
 
 @admin.register(Product)
 class CustomProduct(admin.ModelAdmin):
-    list_display = ("id", "file_id", "title", "product_type")
+    list_display = ("id", "files", "title", "product_type")
