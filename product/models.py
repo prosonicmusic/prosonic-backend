@@ -1,13 +1,14 @@
 from asyncore import file_dispatcher
 from operator import mod
+from typing_extensions import Self
 from django.db import models
 
 # Create your models here.
 
 
 class File(models.Model):
-    demo_file = models.CharField(max_length=100)
-    file = models.CharField(max_length=100)
+    demo_file = models.FileField(upload_to=f"uploads/files/demo", max_length=254)
+    file = models.FileField(upload_to=f"uploads/files/main", max_length=254)
     file_name = models.CharField(max_length=100)
 
     def __str__(self) -> str:
@@ -23,16 +24,26 @@ class Product(models.Model):
     genre = models.CharField(max_length=100)
     bpm = models.CharField(max_length=100)
     project_description = models.CharField(max_length=100)
-    project_image = models.CharField(max_length=100)
-    thumbnail = models.CharField(max_length=100)
+    project_image = models.ImageField(
+        upload_to=f"uploads/images/products", max_length=254
+    )
+    thumbnail = models.ImageField(upload_to=f"uploads/images/products", max_length=254)
     tag = models.CharField(max_length=100)
     product_type = models.CharField(max_length=100, blank=True)
     package_type = models.CharField(max_length=100, blank=True)
     sample_type = models.CharField(max_length=100, blank=True)
-    product_price = models.CharField(max_length=100, blank=True)
-    stem_price = models.CharField(max_length=100, blank=True)
-    cover_price = models.CharField(max_length=100, blank=True)
-    overall_price = models.CharField(max_length=100, blank=True)
+    product_price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
+    stem_price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
+    cover_price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
+    overall_price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=False, null=True
+    )
     sold = models.BooleanField(default=False)
 
     def __str__(self) -> str:
