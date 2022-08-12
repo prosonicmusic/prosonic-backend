@@ -1,1 +1,17 @@
-FROM python
+FROM python:3.9.13
+LABEL MAINTAINER="Mahmoud Eslami | mahmoudeslami@hotmail.com"
+
+ENV PYTHONUNBUFFERED 1
+
+# Set working directory
+RUN mkdir /prosonic
+WORKDIR /prosonic
+COPY . /prosonic
+
+# Installing requirements
+ADD requirements.txt /prosonic
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+
+CMD [ "python","manage.py","runserver" ]

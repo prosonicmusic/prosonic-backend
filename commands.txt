@@ -1,4 +1,15 @@
+// important commands
 docker volume create prosonic_postgresql
+docker volume create prosonic_uploads_volume
 docker network create postgres_network
 
 docker-compose up -d
+
+
+
+
+
+
+
+
+
