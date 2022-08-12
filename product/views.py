@@ -7,28 +7,18 @@ import traceback
 from rest_framework import status, generics
 from product.models import Product
 from product.serializers import ProductSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import PageNumberPagination
 
 
-class ProductClassView(APIView):
-    # permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        try:
-            genres = request.GET["genres"]
-            daw = request.GET["daw"]
-            min_price = request.GET["minp"]
-            max_price = request.GET["maxp"]
-            product_type = request.GET["ptype"]
-
-            return Response([], status=status.HTTP_200_OK)
-        except Exception as e:
-            trace_back = traceback.format_exc()
-            message = str(e) + " " + str(trace_back)
-            print(message)
-            raise Exception(message)
+class ProductPageSizePagination(PageNumberPagination):
+    page_size = 20
 
 
-# class ProductsList(generics.ListCreateAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-# permission_classes = [IsAuthenticated]
+class ProductsList(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["tag", "daw", "product_type", "product_price"]
+    pagination_class = ProductPageSizePagination
+    # permission_classes = [IsAuthenticated]
