@@ -19,6 +19,24 @@ class ProductsList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["tag", "daw", "product_type", "product_price"]
+    filterset_fields = ["tag", "daw", "product_type"]
     pagination_class = ProductPageSizePagination
-    # permission_classes = [IsAuthenticated]
+    permission_classes = []
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        min_price = self.request.GET.get("min_price")
+        max_price = self.request.GET.get("max_price")
+
+        if min_price:
+            queryset = queryset.filter(product_price__gte=min_price)
+        elif max_price:
+            queryset = queryset.filter(product_price__lte=max_price)
+
+        return queryset
+
+    def create(self, request, *args, **kwargs):
+        return Response(
+            {"error": "HTTP_405_METHOD_NOT_ALLOWED"},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
