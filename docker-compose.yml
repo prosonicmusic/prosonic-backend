@@ -32,8 +32,8 @@ services:
 volumes:
   prosonic_postgresql:
     external: true 
-  prosonic_uploads_volume:
-    external: true  
+  # prosonic_uploads_volume:
+  #   external: true  
 networks:
   postgres_network:
     external: true 
