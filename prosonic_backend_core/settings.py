@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-9287aq&%+)ov4r)^i*i!v(2@-4$l=%h43t781=a^i5b8w4jkqh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,6 +41,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "user_profile",
     "product",
+    # swagger documentation
+    "drf_yasg",
+    # filter
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +57,16 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Auth Token eg [Bearer (JWT)]": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+        }
+    }
+}
+
 ROOT_URLCONF = "prosonic_backend_core.urls"
 
 REST_FRAMEWORK = {
@@ -59,6 +74,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }
 
 TEMPLATES = [
@@ -97,6 +113,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
+        # "HOST": "prosonic_postgresql",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -136,7 +153,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
 STATIC_URL = "static/"
 
 # Default primary key field type

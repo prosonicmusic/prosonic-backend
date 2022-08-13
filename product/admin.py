@@ -5,9 +5,9 @@ from .models import *
 
 @admin.register(File)
 class CustomFile(admin.ModelAdmin):
-    list_display = ("file_name", "demo_file")
+    list_display = ("id", "file_name", "demo_file")
 
 
 @admin.register(Product)
 class CustomProduct(admin.ModelAdmin):
-    list_display = ("file_id", "title", "product_type")
+    list_display = ("id", "files", "title", "product_type")
