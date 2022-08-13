@@ -1,9 +1,25 @@
 // important commands
+// docker comands
 docker volume create prosonic_postgresql
-docker volume create prosonic_uploads_volume
 docker network create postgres_network
 
 docker-compose up -d
+
+
+// django comands
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+// address
+https://localhost:8000 or https://127.0.0.1:8000
+
+// path 
+/admin
+/product/get
+
+
 
 
 
