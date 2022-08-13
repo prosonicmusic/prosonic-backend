@@ -5,7 +5,9 @@ uploads/
 __pycache__
 db.sqlite3
 media
+<<<<<<< HEAD
 __pycache__/
 .*
 *.pyc 
-/prosonic_backend_core/static
+prosonic_backend_core/static/
+
