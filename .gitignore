@@ -8,3 +8,4 @@ media
 __pycache__/
 .*
 *.pyc 
+/prosonic_backend_core/static
