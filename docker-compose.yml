@@ -1,20 +1,21 @@
 version: '3'
 
 services:
-  # prosinic:
-  #   build: 
-  #     context: .
-  #     dockerfile: DockerFile
-  #   volumes:
-  #     - .:/prosinic_backend_core
-  #     - prosonic_uploads_volume:/prosinic_backend_core/uploads
-  #   restart: always
-  #   ports:
-  #     - "8000:8000"
-  #   networks:
-  #     - postgres_network
-  #   depends_on:
-  #     - prosonic_postgresql
+  prosinic:
+    build: 
+      context: .
+      dockerfile: DockerFile
+    volumes:
+      - .:/prosinic
+      - ./uploads:/prosonic/uploads
+      - ./prosonic_backend_core/static:/prosonic/static
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - postgres_network
+    depends_on:
+      - prosonic_postgresql
 
   prosonic_postgresql:
     image: postgres:14.4
@@ -32,8 +33,6 @@ services:
 volumes:
   prosonic_postgresql:
     external: true 
-  # prosonic_uploads_volume:
-  #   external: true  
 networks:
   postgres_network:
     external: true 
