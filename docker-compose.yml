@@ -11,7 +11,7 @@ services:
       - ./prosonic_backend_core/static:/prosonic/static
     restart: always
     ports:
-      - "8000:8000"
+      - "8080:8080"
     networks:
       - postgres_network
     depends_on:
