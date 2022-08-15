@@ -44,7 +44,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("login", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
-    path("users/", include("user_profile.urls")),
+    path("user/", include("user_profile.urls")),
     path("product/", include("product.urls")),
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),

@@ -52,7 +52,9 @@ class Product(models.Model):
         upload_to=f"uploads/images/products", max_length=254, blank=True, null=True
     )
     tag = models.CharField(max_length=100, blank=True, null=True)
-    product_type = models.CharField(max_length=100, blank=True, null=True)
+    product_type = models.CharField(
+        max_length=100, choices=PRODUCT_TYPE_CHOICES, blank=True, null=True
+    )
     package_type = models.CharField(max_length=100, blank=True, null=True)
     sample_type = models.CharField(max_length=100, blank=True, null=True)
     product_price = models.DecimalField(
@@ -61,7 +63,6 @@ class Product(models.Model):
     stem_price = models.DecimalField(
         max_digits=10,
         decimal_places=0,
-        choices=PRODUCT_TYPE_CHOICES,
         blank=True,
         null=True,
     )
