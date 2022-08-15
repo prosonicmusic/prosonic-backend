@@ -24,14 +24,13 @@ class File(models.Model):
 
 DAW_CHOICES = (
     ("Cubase", "Cubase"),
-    ("FL Studio", "FL Studio"),
+    ("FLStudio", "FLStudio"),
 )
 
 PRODUCT_TYPE_CHOICES = (
-    ("beat", "Beat"),
-    ("track", "Track"),
-    ("service", "Service"),
-    ("package", "Package"),
+    ("Track", "Track"),
+    ("Service", "Service"),
+    ("Package", "Package"),
 )
 
 
