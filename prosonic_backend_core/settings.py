@@ -19,6 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
 # Quick-start development settings - unsuitable for production
@@ -68,6 +69,8 @@ INSTALLED_APPS = [
     "drf_yasg",
     # filter
     "django_filters",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [

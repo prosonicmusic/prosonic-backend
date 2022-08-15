@@ -5,4 +5,4 @@ from .models import *
 
 @admin.register(UserProfile)
 class CustomUserProfile(admin.ModelAdmin):
-    list_display = ("user_id", "verified")
+    list_display = ("user", "verified")
