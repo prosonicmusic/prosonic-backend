@@ -1,8 +1,14 @@
+import email
+from enum import unique
 from itertools import product
-from rest_framework import serializers
 from .models import UserProfile
 from prosonic_backend_core import settings
 from django.contrib.auth.models import User
+from rest_framework import serializers
+from django.contrib.auth import get_user_model  # If used custom user model
+from rest_framework.validators import UniqueValidator
+
+UserModel = get_user_model()
 
 
 class BaseUserInfoSerializer(serializers.ModelSerializer):
@@ -30,4 +36,24 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
 
 class UserRegisterationSerializer(serializers.ModelSerializer):
-    pass
+
+    email = serializers.EmailField(
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+
+    def create(self, validated_data):
+
+        user = UserModel.objects.create_user(
+            email=validated_data["email"],
+            username=validated_data["email"],
+        )
+        user.set_password(validated_data["password"])
+        user.save()
+
+        UserProfile.objects.create(user=user)
+
+        return user
+
+    class Meta:
+        model = UserModel
+        fields = ("id", "password", "email")
