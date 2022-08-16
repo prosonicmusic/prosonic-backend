@@ -1,11 +1,16 @@
 from operator import mod
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+UserModel = get_user_model()
+
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to=f"uploads/images/avatar", max_length=254)
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    avatar = models.ImageField(
+        upload_to=f"uploads/images/avatar", max_length=254, blank=True, null=True
+    )
     phone_number = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
     provice = models.CharField(max_length=100, blank=True, null=True)
