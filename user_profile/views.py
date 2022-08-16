@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 # Create your views here.
 class UserInfo(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     def get(self, request):
         try:
