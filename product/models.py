@@ -23,6 +23,7 @@ class File(models.Model):
 
 
 DAW_CHOICES = (
+    ("Package", "Package"),
     ("Cubase", "Cubase"),
     ("FLStudio", "FLStudio"),
 )
