@@ -67,3 +67,25 @@ class CheckVerification(APIView):
         except Exception as e:
             print(e)
             raise e
+
+
+class SendVerification(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        try:
+            pass
+        except Exception as e:
+            print(e)
+            raise e
+
+
+class VerifyUser(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        try:
+            pass
+        except Exception as e:
+            print(e)
+            raise e
