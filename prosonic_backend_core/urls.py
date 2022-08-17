@@ -26,6 +26,8 @@ from drf_yasg import openapi
 from django.conf import settings
 from django.conf.urls.static import static
 
+from user_profile.views import CustomTokenObtainPairView
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Prosonic API",
@@ -42,7 +44,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("login", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
     path("user/", include("user_profile.urls")),
     path("product/", include("product.urls")),

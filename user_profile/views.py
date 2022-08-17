@@ -7,9 +7,16 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from user_profile.serializers import UserInfoSerializer, UserRegisterationSerializer
 from .models import UserProfile
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
 from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+    token_obtain_pair = TokenObtainPairView.as_view()
 
 
 class UserInfo(APIView):
