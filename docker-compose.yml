@@ -15,11 +15,11 @@ services:
     networks:
       - postgres_network
     depends_on:
-      - prosonic_postgresql
+      - postgresql
 
   postgresql:
     image: postgres:14.4
-    container_name: prosonic_postgresql
+    container_name: postgresql
     volumes:
       - prosonic_postgresql:/var/lib/postgresql/data
     restart: always
