@@ -7,10 +7,18 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from user_profile.serializers import UserInfoSerializer, UserRegisterationSerializer
 from .models import UserProfile
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
 from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
-# Create your views here.
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+    token_obtain_pair = TokenObtainPairView.as_view()
+
+
 class UserInfo(APIView):
     permission_classes = []
 
@@ -26,7 +34,6 @@ class UserInfo(APIView):
             raise e
 
 
-# Create your views here.
 class Register(APIView):
     def post(self, request):
         try:
@@ -38,6 +45,47 @@ class Register(APIView):
             else:
                 return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
             return Response({"user_id": user_id, "message": "User created!"})
+        except Exception as e:
+            print(e)
+            raise e
+
+
+class CheckVerification(APIView):
+    permission_classes = []
+
+    def get(self, requrest):
+        try:
+            user_id = self.request.query_params.get("user_id")
+            user = get_object_or_404(UserModel, pk=user_id)
+            user_profile = get_object_or_404(UserProfile, pk=user.id)
+            return Response(
+                {
+                    "username": user.username,
+                    "status": user_profile.verified,
+                }
+            )
+        except Exception as e:
+            print(e)
+            raise e
+
+
+class SendVerification(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        try:
+            pass
+        except Exception as e:
+            print(e)
+            raise e
+
+
+class VerifyUser(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        try:
+            pass
         except Exception as e:
             print(e)
             raise e
