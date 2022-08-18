@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  prosinic:
+  prosonic:
     build: 
       context: .
       dockerfile: DockerFile
@@ -17,7 +17,7 @@ services:
     depends_on:
       - prosonic_postgresql
 
-  prosonic_postgresql:
+  postgresql:
     image: postgres:14.4
     container_name: prosonic_postgresql
     volumes:
