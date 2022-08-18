@@ -15,13 +15,13 @@ services:
     networks:
       - postgres_network
     depends_on:
-      - postgresql_db
+      - prosonic_postgresql
 
-  postgresql_db:
+  prosonic_postgresql:
     image: postgres:14.4
-    container_name: postgresql_db
+    container_name: prosonic_postgresql
     volumes:
-      - postgresql_db:/var/lib/postgresql/data
+      - prosonic_postgresql:/var/lib/postgresql/data
     restart: always
     env_file: .env
     ports:
@@ -31,7 +31,7 @@ services:
 
 
 volumes:
-  postgresql_db:
+  prosonic_postgresql:
     external: true 
 networks:
   postgres_network:

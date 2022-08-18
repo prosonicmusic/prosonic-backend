@@ -71,5 +71,8 @@ class Product(models.Model):
     )
     sold = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ["-id"]
+
     def __str__(self) -> str:
         return self.title
