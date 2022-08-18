@@ -21,7 +21,7 @@ services:
     image: postgres:14.4
     container_name: postgresql
     volumes:
-      - prosonic_postgresql:/var/lib/postgresql/data
+      - postgresql:/var/lib/postgresql/data
     restart: always
     env_file: .env
     ports:
@@ -31,7 +31,7 @@ services:
 
 
 volumes:
-  prosonic_postgresql:
+  postgresql:
     external: true 
 networks:
   postgres_network:
