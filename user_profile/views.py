@@ -10,6 +10,7 @@ from .models import UserProfile
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomTokenObtainPairSerializer
 from django.contrib.auth import get_user_model
+from django.core.mail import EmailMessage
 
 UserModel = get_user_model()
 
@@ -89,3 +90,18 @@ class VerifyUser(APIView):
         except Exception as e:
             print(e)
             raise e
+
+
+def send_email(email: str):
+    email = EmailMessage(
+        "Title",
+        (
+            "ConsultSerializer.name",
+            "ConsultSerializer.email",
+            "ConsultSerializer.phone",
+        ),
+        "prosonicweb@gmail.com",
+        [email],
+    )
+
+    email.send()
