@@ -15,13 +15,13 @@ services:
     networks:
       - postgres_network
     depends_on:
-      - postgresql
+      - postgresql_db
 
-  postgresql:
+  postgresql_db:
     image: postgres:14.4
-    container_name: postgresql
+    container_name: postgresql_db
     volumes:
-      - postgresql:/var/lib/postgresql/data
+      - postgresql_db:/var/lib/postgresql/data
     restart: always
     env_file: .env
     ports:
@@ -31,7 +31,7 @@ services:
 
 
 volumes:
-  postgresql:
+  postgresql_db:
     external: true 
 networks:
   postgres_network:

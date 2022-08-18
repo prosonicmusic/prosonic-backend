@@ -140,7 +140,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "prosonic_postgresql",
+        "HOST": "postgresql_db",
         "PORT": "5432",
     }
 }
