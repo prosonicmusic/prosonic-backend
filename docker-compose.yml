@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: DockerFile
     volumes:
-      - .:/prosinic
+      - .:/prosonic
       - ./uploads:/prosonic/uploads
       - ./static:/prosonic/static
     restart: always
