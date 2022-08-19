@@ -51,7 +51,9 @@ class GetSpecificProduct(APIView):
         try:
             id = self.request.query_params.get("id")
             product = get_object_or_404(Product, pk=id)
-            serialized_product = ProductSerializer(product)
+            serialized_product = ProductSerializer(
+                product, context={"request": request}
+            )
             return Response(serialized_product.data)
         except Exception as e:
             print(e)
