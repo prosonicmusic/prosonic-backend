@@ -5,10 +5,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
+from prosonic_backend_core.utils import customResponse
 from user_profile.serializers import UserInfoSerializer, UserRegisterationSerializer
 from .models import UserProfile
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer
+from .serializers import CustomTokenObtainPairSerializer, UserVerificationSerializer
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMessage
 
@@ -29,7 +30,9 @@ class UserInfo(APIView):
             user = get_object_or_404(UserModel, pk=id)
             obj = UserProfile.objects.get(user=user)
             serialized_user = UserInfoSerializer(obj)
-            return Response(serialized_user.data)
+            return customResponse(
+                data=serialized_user.data, status=200, message="", success=1
+            )
         except Exception as e:
             print(e)
             raise e
@@ -44,8 +47,12 @@ class Register(APIView):
                 user = serialized.create(serialized.data)
                 user_id = user.id
             else:
-                return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
-            return Response({"user_id": user_id, "message": "User created!"})
+                return customResponse(
+                    data=[], status=400, message=serialized._errors, success=0
+                )
+            return customResponse(
+                data=user_id, message="User created!", status=200, success=1
+            )
         except Exception as e:
             print(e)
             raise e
@@ -59,11 +66,9 @@ class CheckVerification(APIView):
             user_id = self.request.query_params.get("user_id")
             user = get_object_or_404(UserModel, pk=user_id)
             user_profile = get_object_or_404(UserProfile, pk=user.id)
-            return Response(
-                {
-                    "username": user.username,
-                    "status": user_profile.verified,
-                }
+
+            return customResponse(
+                success=1, data=user_profile.verified, message="", status=200
             )
         except Exception as e:
             print(e)
@@ -86,7 +91,26 @@ class VerifyUser(APIView):
 
     def post(self, request):
         try:
-            pass
+            serialized = UserVerificationSerializer(data=request.data)
+            if serialized.is_valid():
+                user = get_object_or_404(UserModel, email=serialized.data["email"])
+                user_profile = get_object_or_404(UserProfile, user=user)
+                user_code = user_profile.otp
+                if user_code == int(serialized.data["code"]):
+                    user_profile.verified = True
+                    user_profile.save()
+                else:
+                    return customResponse(
+                        success=0, message="Otp is wrong", data=[], status=400
+                    )
+
+                return customResponse(
+                    success=1, message="User verified", data=[], status=200
+                )
+            else:
+                return customResponse(
+                    message=serialized._errors, status=400, data=[], success=0
+                )
         except Exception as e:
             print(e)
             raise e
