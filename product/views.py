@@ -41,7 +41,11 @@ class ProductsList(generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         return customResponse(
-            status=405, message="HTTP_405_METHOD_NOT_ALLOWED", success=0, data=[]
+            status=405,
+            message="HTTP_405_METHOD_NOT_ALLOWED",
+            success=0,
+            data=[],
+            http=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
 
 
@@ -56,7 +60,11 @@ class GetSpecificProduct(APIView):
                 product, context={"request": request}
             )
             return customResponse(
-                data=serialized_product.data, status=200, success=1, message=""
+                data=serialized_product.data,
+                status=200,
+                success=1,
+                message="",
+                http=status.HTTP_200_OK,
             )
         except Exception as e:
             print(e)

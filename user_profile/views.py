@@ -31,7 +31,11 @@ class UserInfo(APIView):
             obj = UserProfile.objects.get(user=user)
             serialized_user = UserInfoSerializer(obj)
             return customResponse(
-                data=serialized_user.data, status=200, message="", success=1
+                data=serialized_user.data,
+                status=200,
+                message="",
+                success=1,
+                http=status.HTTP_200_OK,
             )
         except Exception as e:
             print(e)
@@ -48,10 +52,18 @@ class Register(APIView):
                 user_id = user.id
             else:
                 return customResponse(
-                    data=[], status=400, message=serialized._errors, success=0
+                    data=[],
+                    status=400,
+                    message=serialized._errors,
+                    success=0,
+                    http=status.HTTP_400_BAD_REQUEST,
                 )
             return customResponse(
-                data=user_id, message="User created!", status=200, success=1
+                data=user_id,
+                message="User created!",
+                status=200,
+                success=1,
+                http=status.HTTP_200_OK,
             )
         except Exception as e:
             print(e)
@@ -68,7 +80,11 @@ class CheckVerification(APIView):
             user_profile = get_object_or_404(UserProfile, pk=user.id)
 
             return customResponse(
-                success=1, data=user_profile.verified, message="", status=200
+                success=1,
+                data=user_profile.verified,
+                message="",
+                status=200,
+                http=status.HTTP_200_OK,
             )
         except Exception as e:
             print(e)
@@ -101,15 +117,27 @@ class VerifyUser(APIView):
                     user_profile.save()
                 else:
                     return customResponse(
-                        success=0, message="Otp is wrong", data=[], status=400
+                        success=0,
+                        message="Otp is wrong",
+                        data=[],
+                        status=400,
+                        http=status.HTTP_400_BAD_REQUEST,
                     )
 
                 return customResponse(
-                    success=1, message="User verified", data=[], status=200
+                    success=1,
+                    message="User verified",
+                    data=[],
+                    status=200,
+                    http=status.HTTP_200_OK,
                 )
             else:
                 return customResponse(
-                    message=serialized._errors, status=400, data=[], success=0
+                    message=serialized._errors,
+                    status=400,
+                    data=[],
+                    success=0,
+                    http=status.HTTP_400_BAD_REQUEST,
                 )
         except Exception as e:
             print(e)

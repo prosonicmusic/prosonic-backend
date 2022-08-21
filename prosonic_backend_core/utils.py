@@ -9,12 +9,13 @@ def GenerateResetCode(num):
     return randint(start_with, end_with)
 
 
-def customResponse(status, message, data, success):
+def customResponse(status, message, data, success, http):
     return Response(
         {
             "success": success,
             "message": message,
             "status": status,
             "data": data,
-        }
+        },
+        status=http,
     )
