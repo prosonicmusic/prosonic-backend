@@ -74,3 +74,8 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ("id", "first_name", "name", "password", "email")
+
+
+class UserVerificationSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=10)

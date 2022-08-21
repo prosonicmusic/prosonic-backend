@@ -12,6 +12,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404
 
+from prosonic_backend_core.utils import customResponse
+
 
 class ProductPageSizePagination(PageNumberPagination):
     page_size = 20
@@ -38,9 +40,12 @@ class ProductsList(generics.ListCreateAPIView):
         return queryset
 
     def create(self, request, *args, **kwargs):
-        return Response(
-            {"error": "HTTP_405_METHOD_NOT_ALLOWED"},
-            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        return customResponse(
+            status=405,
+            message="HTTP_405_METHOD_NOT_ALLOWED",
+            success=0,
+            data=[],
+            http=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
 
 
@@ -54,7 +59,13 @@ class GetSpecificProduct(APIView):
             serialized_product = ProductSerializer(
                 product, context={"request": request}
             )
-            return Response(serialized_product.data)
+            return customResponse(
+                data=serialized_product.data,
+                status=200,
+                success=1,
+                message="",
+                http=status.HTTP_200_OK,
+            )
         except Exception as e:
             print(e)
             raise e
