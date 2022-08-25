@@ -16,7 +16,8 @@ from prosonic_backend_core.utils import customResponse
 
 
 class ProductPageSizePagination(PageNumberPagination):
-    page_size = 20
+    page_size = 2
+    page_size_query_param = "page_size"
 
 
 class ProductsList(generics.ListCreateAPIView):
