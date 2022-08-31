@@ -10,4 +10,9 @@ urlpatterns = [
         views.CheckVerification.as_view(),
         name="user_verification",
     ),
+    path(
+        "verification/send",
+        views.SendVerification.as_view(),
+        name="send_verification",
+    ),
 ]
