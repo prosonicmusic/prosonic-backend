@@ -71,6 +71,17 @@ class Register(APIView):
             raise e
 
 
+class UpdateUserProfile(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        try:
+            pass
+        except Exception as e:
+            print(e)
+            raise e
+
+
 class CheckVerification(APIView):
     permission_classes = []
 
