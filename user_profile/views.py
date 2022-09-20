@@ -1,3 +1,4 @@
+from datetime import datetime
 import statistics
 from django.shortcuts import render
 from rest_framework import status
@@ -5,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
-from prosonic_backend_core.utils import customResponse
+from prosonic_backend_core.utils import GenerateResetCode, customResponse
 from user_profile.serializers import UserInfoSerializer, UserRegisterationSerializer
 from .models import UserProfile
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -70,6 +71,17 @@ class Register(APIView):
             raise e
 
 
+class UpdateUserProfile(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        try:
+            pass
+        except Exception as e:
+            print(e)
+            raise e
+
+
 class CheckVerification(APIView):
     permission_classes = []
 
@@ -96,7 +108,23 @@ class SendVerification(APIView):
 
     def post(self, request):
         try:
-            pass
+            code = GenerateResetCode(5)
+            user_id = self.request.query_params.get("user_id")
+            user = get_object_or_404(UserModel, pk=user_id)
+            user_profile = get_object_or_404(UserProfile, pk=user.id)
+            user_profile.otp = code
+            user_profile.otp_expire_time = datetime.now()
+            # todo : check for last otp time
+            user_profile.save()
+
+            send_email(email=user.email)
+            return customResponse(
+                success=1,
+                data=[],
+                message="Verification code sent",
+                status=200,
+                http=status.HTTP_200_OK,
+            )
         except Exception as e:
             print(e)
             raise e
@@ -112,6 +140,7 @@ class VerifyUser(APIView):
                 user = get_object_or_404(UserModel, email=serialized.data["email"])
                 user_profile = get_object_or_404(UserProfile, user=user)
                 user_code = user_profile.otp
+                # todo : check otp time
                 if user_code == int(serialized.data["code"]):
                     user_profile.verified = True
                     user_profile.save()
