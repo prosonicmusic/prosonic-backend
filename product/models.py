@@ -60,6 +60,7 @@ class Product(models.Model):
     product_price = models.DecimalField(
         max_digits=10, decimal_places=0, blank=True, null=True
     )
+    active = models.BooleanField(default=False)
     stem_price = models.DecimalField(
         max_digits=10,
         decimal_places=0,
