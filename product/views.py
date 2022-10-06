@@ -24,7 +24,7 @@ class ProductsList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["tag", "daw", "product_type", "genre"]
+    filterset_fields = ["tag", "daw", "product_type", "genre", "sold"]
     pagination_class = ProductPageSizePagination
     permission_classes = []
 
